@@ -9,7 +9,10 @@ include (cmake/FatalWarnings.cmake)
 ADM_EXTRA_WARNINGS()
 
 FIND_LIBRARY(ZMQ_LIB NAMES zmq)
+FIND_PATH(ZMQ_INCLUDE_DIR NAMES zmq.hpp)
+
 message(STATUS "ZMQ found => " "${ZMQ_LIB}")
+message(STATUS "ZMQ_INCLUDE found => " "${ZMQ_INCLUDE_DIR}")
 
 set(zmq_wrapper_lib_sources
   zmqwrap_base.cpp
@@ -18,6 +21,8 @@ set(zmq_wrapper_lib_sources
 )
 
 add_library(zmqwrap_lib ${zmq_wrapper_lib_sources})
+
+include_directories(${ZMQ_INCLUDE_DIR})
 
 install (TARGETS zmqwrap_lib DESTINATION lib)
 
